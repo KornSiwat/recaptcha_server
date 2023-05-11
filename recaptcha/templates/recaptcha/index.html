@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>reCAPTCHA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </head>
+  <body>
+    <div
+      class="g-recaptcha"
+      data-sitekey="{{ site_key }}"
+      data-callback="captchaCallback"
+    ></div>
+    <script type="text/javascript">
+      function captchaCallback(token) {
+        const url = `gna-captcha:${token}`
+
+        if (typeof token != undefined && token !== "") {
+          open(url)
+          console.log("Message sent to GNA Channel")
+        } else {
+          console.log("Token not found")
+          return
+        }
+      }
+    </script>
+  </body>
+</html>
