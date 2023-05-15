@@ -4,18 +4,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
+  <style>
+    div.g-recaptcha {
+      margin: 0 auto;
+      width: 304px;
+    }
+  </style>
   <body>
     <div
       class="g-recaptcha"
       data-sitekey="{{ site_key }}"
       data-callback="captchaCallback"
     ></div>
-    <script type="text/javascript">
+    <script>
+      isAppReady = false
+      window.addEventListener(
+        "flutterInAppWebViewPlatformReady",
+        function (event) {
+          isAppReady = true
+        }
+      )
       function captchaCallback(token) {
-        const url = `gna-captcha:${token}`
+        const url = `recaptcha:${token}`
 
         if (typeof token != undefined && token !== "") {
-          open(url)
+          window.location.href = url
           console.log("Message sent to GNA Channel")
         } else {
           console.log("Token not found")
